@@ -14,6 +14,8 @@ updater = Updater(token=config.token, use_context=True)
 dispatcher = updater.dispatcher
 txt = ''
 
+'Right from the github!'
+
 keyboard = Keyboard([
     [Key('10min', callback_data='in 10 min'),
      Key('15min', callback_data='in 15 min'),
