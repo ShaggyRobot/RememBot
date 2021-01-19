@@ -14,7 +14,6 @@ updater = Updater(token=config.token, use_context=True)
 dispatcher = updater.dispatcher
 txt = ''
 
-
 keyboard = Keyboard([
     [Key('10min', callback_data='in 10 min'),
      Key('15min', callback_data='in 15 min'),
@@ -88,6 +87,7 @@ if __name__ == '__main__':
     dispatcher.add_handler(msglstn)
 
     Scheduler.scheduler.start()
+    Scheduler.print_jobs()
     updater.start_polling(clean=True)
 
     print('beep...')
