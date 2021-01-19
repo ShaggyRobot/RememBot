@@ -22,6 +22,7 @@ keyboard = Keyboard([
      ]
 ])
 
+#TEST THIS SHIT
 
 def send_msg(chat_id: int, text: str):
     """
