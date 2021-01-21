@@ -3,6 +3,8 @@ import config
 import telegram
 from telegram.ext import Updater, MessageHandler, CallbackQueryHandler, Filters
 from telegram import InlineKeyboardMarkup as Keyboard
+from telegram import ReplyKeyboardMarkup as ReplyKeyboard
+from telegram import ReplyKeyboardRemove as RemoveKeyboard
 from telegram import InlineKeyboardButton as Key
 
 import Scheduler
@@ -14,13 +16,17 @@ updater = Updater(token=config.token, use_context=True)
 dispatcher = updater.dispatcher
 txt = ''
 
-keyboard = Keyboard([
+keypad = ([
     [Key('10min', callback_data='in 10 min'),
      Key('15min', callback_data='in 15 min'),
      Key('1hour', callback_data='in 60 min'),
      Key('Tomorrow', callback_data='tomorrow'),
      ]
 ])
+
+keyboard = ReplyKeyboard(keypad,
+                         resize_keyboard=True,
+                         one_time_keyboard=True)
 
 
 def send_msg(chat_id: int, text: str):
@@ -74,8 +80,9 @@ if __name__ == '__main__':
                           chat_id=update.message.chat.id,
                           job_name='{} * {}'.format(update.message.chat.username,
                                                     update.message.text))
-        bot.sendMessage(chat_id=update.message.chat.id, text=msg)
+        bot.sendMessage(chat_id=update.message.chat.id, text=msg, reply_markup=RemoveKeyboard(keyboard))
         txt = ''
+        # RemoveKeyboard()
         dispatcher.remove_handler(datelisten)
         dispatcher.add_handler(msglstn)
 
