@@ -9,17 +9,10 @@ from telebot.types import ReplyKeyboardRemove as keyboard_remove
 bot = telebot.TeleBot(config.token, parse_mode=None)
 
 markup = types.ReplyKeyboardMarkup(row_width=4, resize_keyboard=True)
-
-# btn_1 = types.KeyboardButton('10m')
-# btn_2 = types.KeyboardButton('15m')
-# btn_3 = types.KeyboardButton('60m')
-# btn_4 = types.KeyboardButton('Tomorrow')
-
 buttons = (types.KeyboardButton('10m'),
            types.KeyboardButton('15m'),
            types.KeyboardButton('60m'),
            types.KeyboardButton('Tomorrow'))
-
 markup.add(*buttons)
 
 
@@ -41,7 +34,7 @@ if __name__ == '__main__':
 
 
     @bot.message_handler(func=lambda x: x.text == 'jobs')
-    def jobs_comm(update):
+    def jobs_comm(x):
         Scheduler.print_jobs()
 
 
@@ -61,7 +54,7 @@ if __name__ == '__main__':
         global txt
         global trigger
         if date_parse(update.text) == 'FUCK!!':
-            bot.send_message(chat_id=update.chat.id, text='FUCK!!!', reply_markup=keyboard_remove())
+            bot.send_message(update.chat.id, 'FUCK!!!', reply_markup=keyboard_remove())
         else:
             time = date_parse(update.text)
             msg = '"{}"\n is set at\n {}'.format(txt, time.strftime('%H:%M:%S %d.%m.%Y'))
@@ -70,12 +63,9 @@ if __name__ == '__main__':
                               chat_id=update.chat.id,
                               job_name='{} * {}'.format(update.chat.username,
                                                         update.text))
-            bot.send_message(chat_id=update.chat.id, text=msg, reply_markup=keyboard_remove())
+            bot.send_message(update.chat.id, msg, reply_markup=keyboard_remove())
         txt = ''
         trigger = 'init'
-
-
-
 
 
     print('beep')

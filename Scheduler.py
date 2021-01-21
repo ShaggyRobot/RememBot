@@ -41,8 +41,4 @@ def add_job(time: datetime, text: str, chat_id: int, job_name: str):
                       replace_existing=True)
     print('{} * {} * {}'.format(time.strftime(time_template), text, job_name))
 
-
 # scheduler.remove_all_jobs()
-
-# print_jobs()
-
