@@ -21,7 +21,8 @@ keypad = ([
      Key('15min', callback_data='in 15 min'),
      Key('1hour', callback_data='in 60 min'),
      Key('Tomorrow', callback_data='tomorrow'),
-     ]
+     ],
+    [Key('space_holder', callback_data=None)]
 ])
 
 keyboard = ReplyKeyboard(keypad,
