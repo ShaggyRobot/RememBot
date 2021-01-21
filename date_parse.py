@@ -17,6 +17,9 @@ def preparse(inp):
 
 def date_parse(dstring: str):
     parsed = dateparser.parse(preparse(dstring), settings=parse_config)
-    if parsed < datetime.now():
-        return date_parse('завтра' + dstring)
+    try:
+        if parsed < datetime.now():
+            return date_parse('завтра' + dstring)
+    except TypeError:
+        return 'FUCK!!'
     return parsed

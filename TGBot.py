@@ -21,8 +21,7 @@ keypad = ([
      Key('15min', callback_data='in 15 min'),
      Key('1hour', callback_data='in 60 min'),
      Key('Tomorrow', callback_data='tomorrow'),
-     ],
-    [Key('space_holder', callback_data=None)]
+     ]
 ])
 
 keyboard = ReplyKeyboard(keypad,
@@ -74,14 +73,17 @@ if __name__ == '__main__':
 
     def date_listen(update, context):
         global txt
-        time = date_parse(update.message.text)
-        msg = '"{}"\n is set at\n {}'.format(txt, time.strftime('%H:%M:%S %d.%m.%Y'))
-        Scheduler.add_job(time=time,
-                          text=txt,
-                          chat_id=update.message.chat.id,
-                          job_name='{} * {}'.format(update.message.chat.username,
-                                                    update.message.text))
-        bot.sendMessage(chat_id=update.message.chat.id, text=msg, reply_markup=RemoveKeyboard(keyboard))
+        if date_parse(update.message.text) == 'FUCK!!':
+            bot.sendMessage(chat_id=update.message.chat.id, text='FUCK!!!', reply_markup=RemoveKeyboard())
+        else:
+            time = date_parse(update.message.text)
+            msg = '"{}"\n is set at\n {}'.format(txt, time.strftime('%H:%M:%S %d.%m.%Y'))
+            Scheduler.add_job(time=time,
+                              text=txt,
+                              chat_id=update.message.chat.id,
+                              job_name='{} * {}'.format(update.message.chat.username,
+                                                        update.message.text))
+            bot.sendMessage(chat_id=update.message.chat.id, text=msg, reply_markup=RemoveKeyboard())
         txt = ''
         # RemoveKeyboard()
         dispatcher.remove_handler(datelisten)
