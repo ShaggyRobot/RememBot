@@ -44,5 +44,5 @@ def add_job(time: datetime, text: str, chat_id: int, job_name: str):
 
 # scheduler.remove_all_jobs()
 
-print_jobs()
+# print_jobs()
 
