@@ -1,6 +1,7 @@
 import config
 import Scheduler
 from date_parse import date_parse
+from datetime import datetime
 
 import telebot
 from telebot import types
@@ -25,7 +26,7 @@ def send_msg(chat_id: int, text: str, job_name: str):
     :param job_name: job name
     :return: none
     """
-    print('<<<', job_name)
+    print('<<<', config.time_now(), job_name)
     bot.send_message(chat_id=chat_id, text=text)
 
 
