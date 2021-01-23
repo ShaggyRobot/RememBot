@@ -3,7 +3,8 @@ from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.executors.pool import ProcessPoolExecutor, ThreadPoolExecutor
-import TGBot
+import TGBot, TGBot_tele
+
 
 time_template = '%H:%M:%S %d.%m.%Y'
 job_store = {'default': SQLAlchemyJobStore('sqlite:///remembot_jobstore.db')}
@@ -35,7 +36,7 @@ def add_job(time: datetime, text: str, chat_id: int, job_name: str):
     :param job_name: notifications name in jobstore
     :return: none
     """
-    scheduler.add_job(TGBot.send_msg, args=[chat_id, text],
+    scheduler.add_job(TGBot_tele.send_msg, args=[chat_id, text, job_name],
                       next_run_time=time,
                       name=job_name,
                       replace_existing=True)

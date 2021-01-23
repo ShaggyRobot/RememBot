@@ -16,15 +16,16 @@ buttons = (types.KeyboardButton('10m'),
 markup.add(*buttons)
 
 
-def send_msg(chat_id: int, text: str):
+def send_msg(chat_id: int, text: str, job_name: str):
     """
     Used by Scheduler to send notifications
 
     :param chat_id: chat id
     :param text: message to send
+    :param job_name: job name
     :return: none
     """
-
+    print('<<<', job_name)
     bot.send_message(chat_id=chat_id, text=text)
 
 
@@ -73,4 +74,4 @@ if __name__ == '__main__':
     Scheduler.scheduler.start()
     Scheduler.print_jobs()
 
-    bot.polling()
+    bot.infinity_polling(True)
